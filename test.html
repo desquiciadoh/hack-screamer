@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Подтверждение</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+	<!-- styles -->
+	<style type="text/css">
+		html, body {
+			margin: 0 auto;
+			width: 100%;
+			height: 85vh;
+			background: #202124;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		* {
+	  		font-family: "Roboto", serif;
+	  		font-optical-sizing: auto;
+	 		font-style: normal;
+		}
+		.center {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+		}
+		.main {
+			width: 90%;
+		}
+		.welcome {
+			color: white;
+			text-align: center;
+			font-size: 250%;
+			transition: 3s;
+			opacity: 0;
+			display: block;
+		}
+		.confirm {
+			color: white;
+			text-align: center;
+			transition: 1s;
+			opacity: 0;
+			display: none;
+			margin-top: -5%;
+		}
+		.header {
+			font-size: 150%;
+		}
+		.button {
+			font-size: 125%;
+			margin-top: 5%;
+			background: grey;
+			padding: 4% 0;
+			border-radius: 30px;
+			color: white;
+		}
+		.thanks {
+			font-size: 250%;
+			opacity: 0;
+			display: none;
+			color: white;
+			transition: 2s;
+			text-align: center;
+		}
+		.program {
+			opacity: 1;
+			color: rgb(0,255,0);
+			display: block;
+			text-align: left;
+			font-size: 70%;
+			z-index: 0;
+		}
+		.screen-center {
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			z-index: 1;
+		}
+		.screen {
+			width: 70%;
+			display: block;
+			z-index: 1;
+			position: relative;
+			bottom: 90%;
+		}
+		.screen .row {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.screen .row div {
+			width: 10px;
+			height: 10px;
+			background: white;
+			margin: 0.5px;
+		}
+	</style>
+	<!-- html -->
+	<div class="center">
+		<div class="main">
+			<div class="welcome">Welcome</div>
+			<div class="confirm">
+				<div class="header">Для запуска программы необходимо Ваше подтверждение</div>
+				<div class="button">Подтвердить</div>
+			</div>
+			<div class="thanks">Спасибо</div>
+		</div>
+	</div>
+	<div class="program"></div>
+	<div class="screen-center">
+		<div class="screen"></div>
+	</div>
+	<!-- script -->
+	<script type="text/javascript">
+
+		function play () {
+		  var audio = new Audio('https://cloud.mail.ru/public/Dz6a/MKmzmiYLh');
+		  audio.play();
+		}
+
+		const image = [
+				[0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0 ,0, 0, 0],
+				[0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+				[0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+				[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1],
+				[1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
+				[1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1],
+				[0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0],
+				[0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+				[0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+				[0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0],
+				[0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+				[0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
+				[0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+				[0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+			]
+
+		let screen = document.querySelector('.screen')
+
+		function buildImage () {
+			for (let i = 0; i < image.length; i++) {
+				let newRow = document.createElement('div')
+				newRow.classList = 'row'
+				for (let j = 0; j < image[i].length; j++) {
+					let newDiv = document.createElement('div')
+					if (image[i][j] == 1) {
+						newDiv.style.background = 'white'
+					} else {
+						newDiv.style.background = 'none'
+					}
+					newRow.append(newDiv)
+				}
+				screen.append(newRow)
+			}
+		}
+
+
+		let welcome = document.querySelector('.welcome')
+		let confirm = document.querySelector('.confirm')
+		let thanks = document.querySelector('.thanks')
+		let program = document.querySelector('.program')
+
+		function start() {
+			setTimeout(() => {
+				welcome.style.opacity = 1
+				setTimeout(() => {
+					welcome.style.transition = '1.5s'
+					welcome.style.opacity = 0
+					setTimeout(() => {
+						welcome.style.display = 'none'
+						confirm.style.display = 'block'
+						setTimeout(() => {
+							confirm.style.opacity = 1
+							let button = document.querySelector('.button')
+							button.onclick = function () {
+							function openFullscreen() {
+								  if (document.body.requestFullscreen) {
+								    document.body.requestFullscreen();
+								  } else if (document.body.webkitRequestFullscreen) {
+								    document.body.webkitRequestFullscreen();
+								  } else if (document.body.msRequestFullscreen) {
+								    document.body.msRequestFullscreen();
+								  }
+								}
+								openFullscreen()
+								setTimeout(() => {
+									confirm.style.opacity = 0
+									setTimeout(() => {
+										confirm.style.display = 'none'
+										thanks.style.display = 'block'
+										setTimeout(() => {
+											thanks.style.opacity = 1
+											setTimeout(() => {
+												thanks.style.opacity = 0
+												setTimeout(() =>{
+													thanks.style.display = 'none'
+													setTimeout(() =>{
+														program.style.display = 'block'
+														setTimeout(() => {
+															rush()
+														}, 500)
+													}, 500)
+												}, 2000)
+											}, 2000)
+										}, 50)
+									}, 1000)
+								}, 250)
+							}
+						}, 250)
+					}, 1500)
+				}, 3500)
+			}, 250)
+		}
+
+
+		function rush () {
+			let center = document.querySelector('.center')
+			let main = document.querySelector('.main')
+			document.body.style.background = 'black'
+			center.style.display = 'none'
+
+			let div = document.createElement('div')
+			div.style.color = 'rgb(0,255,0)'
+			div.textContent = '> $start'
+			program.append(div)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[0.021] Загрузка протокола HTTP...'
+				program.append(div)
+			}, 300)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[0.754] Протокол HTTP успешно загружен.'
+				program.append(div)
+			}, 700)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[0.987] Связь с удаленной устройством по каналу #SHA256 установлена'
+				program.append(div)
+			}, 1100)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.301] Полный доступ к устройству Android получен'
+				program.append(div)
+			}, 1300)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.418] Перенаправление истории браузера текущего устройства на удаленное устройства...'
+				program.append(div)
+			}, 1400)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.473] История браузера успешно сохранена на удаленном устройстве'
+				program.append(div)
+			}, 1450)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.591] Отправка файлов из директории DCIM/Camera'
+				program.append(div)
+			}, 1550)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.626] Отправка файлов из директории DCIM/Screenshots'
+				program.append(div)
+			}, 1600)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.678] Отправка файлов из директории DCIM/Telegram'
+				program.append(div)
+			}, 1650)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.702] Отправка файлов из директории DCIM/WhatsApp'
+				program.append(div)
+			}, 1720)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.780] Восстановление и отправка удаленных файлов'
+				program.append(div)
+			}, 1750)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[1.898] Отправка скрытых и подозрительных файлов'
+				program.append(div)
+			}, 1850)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.072] Успешно завершено копирование файлов из директории DCIM на удаленное устройство'
+				program.append(div)
+			}, 2000)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.131] Получение доступа к сквозному шифрованию аккаунта WhatsApp'
+				program.append(div)
+			}, 2100)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.173] Получение доступа к сквозному шифрованию аккаунта Telegram'
+				program.append(div)
+			}, 2210)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.267] Получен доступ 22 чатам WhatsApp'
+				program.append(div)
+			}, 2276)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.300] Успешно переслана информация из 22 чатов WhatsApp текущего устройства на удаленное устройство'
+				program.append(div)
+			}, 2300)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.339] Получен доступ 18 чатам Telegram'
+				program.append(div)
+			}, 2340)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.371] Успешно переслана информация из 18 чатов Telegram текущего устройства на удаленное устройство'
+				program.append(div)
+			}, 2370)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.411] Произведена отправка кэш-файлов из Telegram на удаленное устройство'
+				program.append(div)
+			}, 2470)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.673] Поиск и отправка доступных паролей и email-адресов'
+				program.append(div)
+			}, 2670)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[2.899] Найдено 43 учетные записи с допступными паролями и email-адресами, успешно пересланы на удаленное устройство'
+				program.append(div)
+			}, 2900)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[3.056] Получение доступа к внутренним директориям и приложениям устройства'
+				program.append(div)
+			}, 3000)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[3.133] Получение доступа к камерам и микрофонам текущего устройства'
+				program.append(div)
+			}, 3050)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[3.388] Успешно получен доступ ко всем внутренним директориям и приложениям, информация отправлена на удаленное устройство'
+				program.append(div)
+			}, 3350)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[3.384] Успешно получен доступ к камерам и микрофам текущего устройства, доступ к системам предоставлен на удаленное устройство в режиме реального времени при заряде устройства выше 5%'
+				program.append(div)
+			}, 3500)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[3.711] Доступ ко всей информации текущего устройства предоставлен на удаленное устройство'
+				program.append(div)
+			}, 3700)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[4.000] Завершение работы программы...'
+				program.append(div)
+			}, 4000)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[4.442] Работа программы завершена. Поздравляем! Вас взломали :)'
+				program.append(div)
+			}, 4442)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '> delete -s -t 10000'
+				program.append(div)
+			}, 4600)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = '[4.973] Информация о программе самоуничтожится через 10 секунд'
+				program.append(div)
+			}, 5000)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = 'Поздравляем! Вас взломали :)'
+				program.append(div)
+			}, 5050)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = 'Поздравляем! Вас взломали :)'
+				program.append(div)
+			}, 5150)
+			setTimeout(() => {
+				let div = document.createElement('div')
+				div.style.color = 'rgb(0,255,0)'
+				div.textContent = 'Поздравляем! Вас взломали :)'
+				program.append(div)
+			}, 5250)
+			setTimeout(() => {
+				buildImage()
+				currentColor = 'white'
+				let interval = setInterval(() => {
+					if (currentColor == 'white') {
+						for (let i = 0; i < screen.children.length; i++) {
+							for (let j = 0; j < screen.children[i].children.length; j++) {
+								if (screen.children[i].children[j].style.background == 'white') {
+									screen.children[i].children[j].style.background = 'red'
+								} 
+							}
+						}
+						currentColor = 'red'
+					} else {
+						for (let i = 0; i < screen.children.length; i++) {
+							for (let j = 0; j < screen.children[i].children.length; j++) {
+								if (screen.children[i].children[j].style.background == 'red') {
+									screen.children[i].children[j].style.background = 'white'
+								} 
+							}
+						}
+						currentColor = 'white'
+					}
+				}, 50)
+			}, 12000)
+			setTimeout(() => {
+				window.close();
+			}, 15000)
+		}
+		start()
+	</script>
+</body>
+</html>
